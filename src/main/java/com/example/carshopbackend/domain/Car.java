@@ -1,9 +1,6 @@
 package com.example.carshopbackend.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
@@ -14,16 +11,22 @@ public class Car {
     private String brand, model, color, registrationNumber;
     private int modelYear, price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ownerid")
+    private Owner owner;
+
     public Car() {
     }
 
-    public Car(String brand, String model, String color, String registrationNumber, int modelYear, int price) {
+    public Car(String brand, String model, String color, String registrationNumber, int modelYear, int price,
+               Owner owner) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.registrationNumber = registrationNumber;
         this.modelYear = modelYear;
         this.price = price;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -76,5 +79,13 @@ public class Car {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 }

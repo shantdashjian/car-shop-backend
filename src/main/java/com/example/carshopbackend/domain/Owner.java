@@ -1,9 +1,8 @@
 package com.example.carshopbackend.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Owner {
@@ -12,6 +11,9 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ownerid;
     private String firstname, lastname;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Car> cars;
 
     public Owner() {
     }
@@ -39,5 +41,13 @@ public class Owner {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }
