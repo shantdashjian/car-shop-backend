@@ -16,3 +16,7 @@ spring:
   data:
     rest:
       basePath: /api
+
+  output:
+    ansi:
+      enabled: always
