@@ -20,3 +20,10 @@ spring:
   output:
     ansi:
       enabled: always
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
