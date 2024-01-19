@@ -1,9 +1,6 @@
 package com.example.carshopbackend;
 
-import com.example.carshopbackend.domain.Car;
-import com.example.carshopbackend.domain.CarRepository;
-import com.example.carshopbackend.domain.Owner;
-import com.example.carshopbackend.domain.OwnerRepository;
+import com.example.carshopbackend.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -19,10 +16,12 @@ public class CarShopBackendApplication implements CommandLineRunner {
 
     private final CarRepository carRepository;
     private final OwnerRepository ownerRepository;
+    private final AppUserRepository appUserRepository;
 
-    public CarShopBackendApplication(CarRepository carRepository, OwnerRepository ownerRepository) {
+    public CarShopBackendApplication(CarRepository carRepository, OwnerRepository ownerRepository, AppUserRepository appUserRepository) {
         this.carRepository = carRepository;
         this.ownerRepository = ownerRepository;
+        this.appUserRepository = appUserRepository;
     }
 
     public static void main(String[] args) {
@@ -48,5 +47,11 @@ public class CarShopBackendApplication implements CommandLineRunner {
                         car.getBrand(), car.getModel());
             }
         }
+        // Username: user, password: user
+        appUserRepository.save(new AppUser("user",
+                "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", " USER"));
+        // Username: admin, password: admin
+        appUserRepository.save(new AppUser("admin",
+                "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", " ADMIN"));
     }
 }
